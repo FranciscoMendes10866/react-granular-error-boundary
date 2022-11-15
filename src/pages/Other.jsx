@@ -28,14 +28,16 @@ const ComponentToThrowError = () => {
 };
 
 const Other = () => {
+  const handleOnError = useCallback((catchedError) => {
+    console.error(`[Granular Error Boundary]: ${catchedError}`);
+  }, []);
+
   return (
     <div>
       <h1>This is the "Other" Page</h1>
       <GranularErrorBoundary
         fallback={(fallbackProps) => <CustomErrorBoundary {...fallbackProps} />}
-        onError={(catchedError) => {
-          console.error(`[Granular Error Boundary]: ${catchedError}`);
-        }}
+        onError={handleOnError}
       >
         <ComponentToThrowError />
       </GranularErrorBoundary>
